@@ -8,7 +8,7 @@
 %banco(ID,Seme).
 %briscola(Seme).
 %manoAvversario(Nome,Seme).
-%manoGiocat ore(Nome,Seme).
+%manoGiocatore(Nome,Seme).
 %turno(N).
 
 gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
