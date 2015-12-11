@@ -4,11 +4,11 @@
 %avversario(0).
 %mazzo(1..40).
 %
-%carta(Nome,Seme,Valore).
+%carta(ID,Seme,Valore).
 %banco(ID,Seme).
 %briscola(Seme).
 %manoAvversario(Nome,Seme).
-%manoGiocatore(Nome,Seme).
+%manoGiocat ore(Nome,Seme).
 %turno(N).
 
 gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
