@@ -24,15 +24,18 @@ import logic.Mazzo;
 
 public class MainFrame extends Application {
 	
-	private CustomBorderPane main;
+	private CustomGridPane main;
 
 	@Override
 	public void start(Stage arg0) throws Exception {
 		
-		main = new CustomBorderPane();
+		main = new CustomGridPane();
 
 	    Rectangle2D screen = Screen.getPrimary().getVisualBounds();
 	    arg0.setScene(new Scene(main, screen.getWidth() - 60.00, screen.getHeight() -60.00));
+	    System.out.println(" screen width " + (screen.getWidth() - 60.00));
+	    System.out.println(" screen width " + (screen.getHeight() -60.00));
+	    
 	    new AnimationTimer() {
 			
 			@Override

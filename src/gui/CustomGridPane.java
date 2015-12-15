@@ -1,15 +1,11 @@
 package gui;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
@@ -19,7 +15,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import logic.BriscolaManager;
 
-public class CustomBorderPane extends GridPane {
+public class CustomGridPane extends GridPane {
 
 	private BriscolaManager b;
 	private GridPane banco;
@@ -27,10 +23,10 @@ public class CustomBorderPane extends GridPane {
 	private Label punteggioG2;
 	private HBox carteSulBanco;
 	
-	public CustomBorderPane() {
+	public CustomGridPane() {
 		
 		this.setGridLinesVisible(true);
-		this.setVgap(20);
+		this.setVgap(10);
 //		this.setHgap(20);
 //		this.setPadding(new Insets(10,10,10,10));
 		setCostraints();
@@ -38,17 +34,20 @@ public class CustomBorderPane extends GridPane {
 		banco = new GridPane();
 		this.b = new BriscolaManager();
 		this.b.nuovaPartita();
-		GiocatoreGUI g1 = new GiocatoreGUI(b.getG1());
+		GiocatoreGUI g1 = new GiocatoreGUI(b.getG1() , this.getRowConstraints().get(0).getPercentHeight());
 		g1.disegnaCarte();
-		GiocatoreGUI g2 = new GiocatoreGUI(b.getG2());
+		GiocatoreGUI g2 = new GiocatoreGUI(b.getG2(), this.getRowConstraints().get(2).getMaxHeight());
 		g2.disegnaCarte();
 //		punteggioG1 = new Label(Integer.toString(b.getG1().getPunteggio()));
 //		punteggioG2 = new Label(Integer.toString(b.getG2().getPunteggio()));
 //		this.setBackground(new Background(new BackgroundFill(Color.web("#31b82c"), CornerRadii.EMPTY, Insets.EMPTY)));
 		this.add(g1, 0, 0);
-		this.setColumnSpan(g1, 4);
-		this.setColumnSpan(g2, 4);
-		this.setHalignment(g1, HPos.CENTER);
+//		this.setFillHeight(g1, true);
+		setColumnSpan(g1, 4);
+		setColumnSpan(g2, 4);
+		setHalignment(g1, HPos.CENTER);
+		setFillHeight(g1, true);
+		setFillHeight(g2, true);
 		this.add(g2, 0, 2);
 	/*	if(b.getMazzo().getMazzo().size() > 0 ){
 			banco.add(new Label(Integer.toString(b.getMazzo().getMazzo().size())), 0, 0);
