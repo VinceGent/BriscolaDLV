@@ -13,8 +13,8 @@ public class Carta {
 		this.setId(id);
 		this.setSeme(seme);
 		this.setValore(valore);
-		this.img = new Image(img, 170, 190, false, false);
-//		this.img = new Image(img);
+//		this.img = new Image(img, 170, 190, false, false);
+		this.img = new Image(img);
 //		this.img.widthProperty().add(170);
 //		this.setImg(img);
 	}

@@ -34,9 +34,10 @@ public class CustomGridPane extends GridPane {
 		banco = new GridPane();
 		this.b = new BriscolaManager();
 		this.b.nuovaPartita();
-		GiocatoreGUI g1 = new GiocatoreGUI(b.getG1() , this.getRowConstraints().get(0).getPercentHeight());
+		GiocatoreGUI g1 = new GiocatoreGUI(b.getG1());
 		g1.disegnaCarte();
-		GiocatoreGUI g2 = new GiocatoreGUI(b.getG2(), this.getRowConstraints().get(2).getMaxHeight());
+		GiocatoreGUI g2 = new GiocatoreGUI(b.getG2());
+//		System.out.println( this.getRowConstraints().get(0).  );
 		g2.disegnaCarte();
 //		punteggioG1 = new Label(Integer.toString(b.getG1().getPunteggio()));
 //		punteggioG2 = new Label(Integer.toString(b.getG2().getPunteggio()));
