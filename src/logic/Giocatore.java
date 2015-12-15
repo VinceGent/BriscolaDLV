@@ -38,8 +38,10 @@ public class Giocatore {
 			mieCarte.add(c);
 	}
 	public void aggiungiCartaPresa(Carta c){
-		if(!cartePrese.contains(c))
+		if(!cartePrese.contains(c)){
 			cartePrese.add(c);
+			punteggio+= c.getValore();
+		}
 	}
 	
 	public void setMieCarte(List<Carta> mieCarte) {

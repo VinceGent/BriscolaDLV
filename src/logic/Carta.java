@@ -9,13 +9,16 @@ public class Carta {
 	private int valore;
 	private Image img;
 	
-	public Carta(int id, String seme, int valore, Image img){
+	public Carta(int id, String seme, int valore, String img){
 		this.setId(id);
 		this.setSeme(seme);
 		this.setValore(valore);
-		this.setImg(img);
+		this.img = new Image(img, 170, 200, false, false);
+//		this.setImg(img);
 	}
 
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -46,6 +49,17 @@ public class Carta {
 
 	public void setImg(Image img) {
 		this.img = img;
+	}
+	
+	@Override
+	public boolean equals(Object arg0) {
+		
+		Carta c = (Carta) arg0;
+		if(c == this)
+			return true;
+		else
+			return c.getId() == this.getId() && c.getSeme() == this.getSeme();
+		
 	}
 	
 	

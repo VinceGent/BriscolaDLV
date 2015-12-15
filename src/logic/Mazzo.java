@@ -27,9 +27,9 @@ public class Mazzo {
 		
 		for (int i = 0; i < semi.size(); i++) {
 			for (int j = 0; j < valori.size(); j++) {
-				String immagine = "file:/img/"+ Integer.toString(j+1)+ semi.get(i)+".png";
+				String immagine = "file:img/"+ Integer.toString(j+1)+ semi.get(i)+".png";
 //				Image img = new Image(immagine);
-				getMazzo().add(new Carta(j+1, semi.get(i), valori.get(j), null));
+				getMazzo().add(new Carta(j+1, semi.get(i), valori.get(j), immagine));
 			}
 		}
 		
