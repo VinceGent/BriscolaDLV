@@ -5,13 +5,15 @@ import java.util.List;
 
 public class Giocatore {
 
+	private String nome;
 	private int punteggio = 0;
 	private List<Carta> mieCarte;
 	private List<Carta> cartePrese;
 	
 	
-	public Giocatore() {
+	public Giocatore(String nome) {
 		
+		this.nome = nome;
 		this.setCartePrese(new ArrayList<Carta>());
 		this.setMieCarte(new ArrayList<Carta>());
 		
@@ -56,5 +58,15 @@ public class Giocatore {
 
 	public void setCartePrese(List<Carta> cartePrese) {
 		this.cartePrese = cartePrese;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }

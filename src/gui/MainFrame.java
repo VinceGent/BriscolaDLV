@@ -25,27 +25,35 @@ import logic.Mazzo;
 public class MainFrame extends Application {
 	
 	private CustomGridPane main;
+	private BriscolaManager b;
 
 	@Override
 	public void start(Stage arg0) throws Exception {
-		
-		main = new CustomGridPane();
+		b = new BriscolaManager();
+		b.nuovaPartita("Eliana", "Piera");
+		main = new CustomGridPane(b);
 
 	    Rectangle2D screen = Screen.getPrimary().getVisualBounds();
 	    arg0.setScene(new Scene(main, screen.getWidth() - 60.00, screen.getHeight() -60.00));
 	    System.out.println(" screen width " + (screen.getWidth() - 60.00));
 	    System.out.println(" screen width " + (screen.getHeight() -60.00));
 	    
-	    new AnimationTimer() {
-			
-			@Override
-			public void handle(long arg0) {
-				main.aggiornaBanco();
-			}
-		}.start();
 	    
 	    
 	    arg0.show();
+	/*    new AnimationTimer() {
+	    	
+	    	@Override
+	    	public void handle(long arg0) {
+//	    		main.aggiorna();
+	    		try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    	}
+	    }.start();*/
 	}
 
 	/**

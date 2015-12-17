@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		BriscolaManager briscola = new BriscolaManager();
-		briscola.nuovaPartita();
+//		briscola.nuovaPartita();
 		
 		System.out.println("la briscola è : "+ briscola.getBriscola().getId() + "  " + briscola.getBriscola().getSeme());
 		

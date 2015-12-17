@@ -16,18 +16,20 @@ public class BriscolaManager {
 	public BriscolaManager() {
 		
 		this.setMazzo(new Mazzo());
-		this.setG1(new Giocatore());
-		this.setG2(new Giocatore());
+//		this.setG1(new Giocatore());
+//		this.setG2(new Giocatore());
 		this.setBanco(new HashMap<Integer, Carta>());
 		
 	}
 	
-	public void nuovaPartita(){
+	public void nuovaPartita(String g1, String g2){
 		
 		this.mazzo = new Mazzo();
 		this.mazzo.mischiaMazzo();
-		g1.setPunteggio(0);
-		g2.setPunteggio(0);
+		this.setG1(new Giocatore(g1));
+		this.setG2(new Giocatore(g2));
+		this.g1.setPunteggio(0);
+		this.g2.setPunteggio(0);
 		if(turno == 0){
 			for (int i = 0; i < 3; i++) {
 				this.g1.aggiungiCartaInMano(mazzo.getMazzo().get(0));
@@ -54,76 +56,93 @@ public class BriscolaManager {
 		this.mazzo.getMazzo().remove(0);
 	}
 	
-	public void gioca(Carta c){
+	public boolean gioca(Carta c){
 		System.out.println("Gioco !!");
 		if(turno == 0){
 			if(g1.getMieCarte().contains(c)){
 					getBanco().put(0, c);
 					g1.getMieCarte().remove(c);
-					cambiaTurno();
+//					cambiaTurno();
+					
 			}
 		}else{
 			if (g2.getMieCarte().contains(c)) {
+					System.out.println("entro giusto");
 					getBanco().put(1, c);
 					g2.getMieCarte().remove(c);
-					cambiaTurno();
+					System.out.println("size del banco dopo aggiunta g2 " + banco.size());
+//					cambiaTurno();
+					
 			}
 		}
 		
 		if (controllaGiocata()) {
-			System.out.println("seh giustoh");
-		}
+			//System.out.println("seh giustoh");
+			return true;
+		}else 
+			return false;
 	}
 	
 	public boolean controllaGiocata(){
+		System.out.println("È il turno di "+ turno);
+	
 		if(getBanco().size() == 2){
+			
 			Carta cartaG1 = getBanco().get(0);
 			Carta cartaG2 = getBanco().get(1);
-			
+						
 			if(cartaG1.getSeme() == briscola.getSeme()){
 				if(cartaG2.getSeme() != briscola.getSeme()){
 					//prende g1
 					g1.aggiungiCartaPresa(cartaG1);
 					g1.aggiungiCartaPresa(cartaG2);
+					turno = 0;
 				}else{
 					//controllo 2 carte briscola
 					if(cartaG1.getValore() > cartaG2.getValore()){
 						g1.aggiungiCartaPresa(cartaG1);
 						g1.aggiungiCartaPresa(cartaG2);
+						turno = 0;
 					}else if(cartaG1.getValore() == 0 && cartaG1.getId() > cartaG2.getId()){
 						g1.aggiungiCartaPresa(cartaG1);
 						g1.aggiungiCartaPresa(cartaG2);
+						turno = 0;
 					}else{
 						g2.aggiungiCartaPresa(cartaG1);
 						g2.aggiungiCartaPresa(cartaG2);
+						turno = 1;
 					}
 				}
 			}else{
 				if(cartaG2.getSeme() == briscola.getSeme()){
-					//piglie g2
+					//prende g2
 					g2.aggiungiCartaPresa(cartaG1);
 					g2.aggiungiCartaPresa(cartaG2);
-					
+					turno = 1;
 				}else if (turno == 0){
 					
 					if(cartaG1.getSeme() != cartaG2.getSeme()){
-						// piglie g1
+						// prende g1
 						g1.aggiungiCartaPresa(cartaG1);
 						g1.aggiungiCartaPresa(cartaG2);
+						turno = 0;
 					}else{
 						if(cartaG1.getValore() > cartaG2.getValore()){
-							// piglie g1
+							// prende g1
 							g1.aggiungiCartaPresa(cartaG1);
 							g1.aggiungiCartaPresa(cartaG2);
+							turno = 0;
 						}else if(cartaG1.getValore() == 0 && cartaG1.getId() > cartaG2.getId()){
-							//pigli g1
+							//prende g1
 							g1.aggiungiCartaPresa(cartaG1);
 							g1.aggiungiCartaPresa(cartaG2);
+							turno = 0;
 						}
 						else{
-							//piglie g2
+							//prende g2
 							g2.aggiungiCartaPresa(cartaG1);
 							g2.aggiungiCartaPresa(cartaG2);
+							turno = 1;
 						}
 					}
 				}else{
@@ -131,23 +150,83 @@ public class BriscolaManager {
 					if (cartaG2.getValore() > cartaG1.getValore()) {
 						g2.aggiungiCartaPresa(cartaG1);
 						g2.aggiungiCartaPresa(cartaG2);
+						turno = 1;
 					}else if(cartaG2.getValore() == 0 && cartaG2.getId() > cartaG1.getId()){
+						//prende g2
 						g2.aggiungiCartaPresa(cartaG1);
 						g2.aggiungiCartaPresa(cartaG2);
+						turno = 1;
 					}else{
-						//piglie g2
+						//prende g1
 						g1.aggiungiCartaPresa(cartaG1);
 						g1.aggiungiCartaPresa(cartaG2);
+						turno = 0;
 					}
 				}
 			}
 			getBanco().clear();
+			System.out.println("size del banco dopo controllo " + banco.size());
+			pesca();
+			if(finePartita() != -1){
+				System.out.println("Partita Finita");
+			}
 			return true;
 			// fine if del banco == 2
+		}else if(getBanco().size() == 1){
+			cambiaTurno();
+			return true;
 		}
 		return false;
 	}
-
+	
+	public void pesca(){
+				
+		System.out.println("pesca!!!");
+		if(turno == 0){
+			if(mazzo.getMazzo().size() > 0){
+				g1.aggiungiCartaInMano(mazzo.getMazzo().get(0));
+				mazzo.getMazzo().remove(mazzo.getMazzo().get(0));
+				g2.aggiungiCartaInMano(mazzo.getMazzo().get(0));
+				mazzo.getMazzo().remove(mazzo.getMazzo().get(0));
+			}
+			else{
+				g1.aggiungiCartaInMano(mazzo.getMazzo().get(0));
+				mazzo.getMazzo().remove(mazzo.getMazzo().get(0));
+				g2.aggiungiCartaInMano(briscola);
+				
+			}
+		}else{
+			if(mazzo.getMazzo().size() > 0){
+				g2.aggiungiCartaInMano(mazzo.getMazzo().get(0));
+				mazzo.getMazzo().remove(mazzo.getMazzo().get(0));
+				g1.aggiungiCartaInMano(mazzo.getMazzo().get(0));
+				mazzo.getMazzo().remove(mazzo.getMazzo().get(0));
+			}else{
+				g2.aggiungiCartaInMano(mazzo.getMazzo().get(0));
+				mazzo.getMazzo().remove(mazzo.getMazzo().get(0));
+				g1.aggiungiCartaInMano(briscola);
+			}
+		}
+		
+	}
+	
+	public int finePartita(){
+		
+		if(g1.getMieCarte().isEmpty() && g2.getMieCarte().isEmpty()){
+			
+			if(g1.getPunteggio() == g2.getPunteggio())
+				return 0;
+			
+			if(g1.getPunteggio() > g2.getPunteggio())
+				return 1;
+			else
+				return 2;
+			
+		}
+		return -1;
+		
+	}
+	
 	public Mazzo getMazzo() {
 		return mazzo;
 	}
