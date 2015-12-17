@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.List;
-
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,7 +8,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
@@ -26,9 +23,13 @@ public class CustomGridPane extends GridPane {
 	private BancoGUI banco;
 	private GiocatoreGUI g1;
 	private GiocatoreGUI g2;
+	private GridPane mypaneLeft;
+	private GridPane mypaneRight;
 	
 	public CustomGridPane(BriscolaManager b) {
 		
+		this.mypaneLeft = new GridPane();
+		this.mypaneRight = new GridPane();
 		notifiche = new ManagerAggiornamento(this);
 		this.setGridLinesVisible(false);
 		this.setVgap(10);
@@ -39,12 +40,21 @@ public class CustomGridPane extends GridPane {
 		g1 = new GiocatoreGUI(b.getG1(), b);
 		g2 = new GiocatoreGUI(b.getG2(), b);
 		turno = new Label();
+		setHalignment(turno, HPos.CENTER);
 		punteggioG1 = new Label();
 		punteggioG2 = new Label();
-		this.add(punteggioG1, 0, 1);
+		
+		this.mypaneLeft.add(turno, 0, 0);
+//		this.mypaneLeft.setGridLinesVisible(true);
+		this.mypaneLeft.add(punteggioG1, 0, 1);
+		this.add(mypaneLeft, 0, 1);
 		setHalignment(punteggioG1, HPos.CENTER);
 		
-		this.add(punteggioG2, 2, 1);
+//		this.mypaneRight.setGridLinesVisible(true);
+		this.mypaneRight.add(punteggioG2, 0, 1);
+		this.add(mypaneRight, 2, 1);
+		
+//		this.add(punteggioG2, 2, 1);
 		setHalignment(punteggioG2, HPos.CENTER);
 		
 		this.setBackground(new Background(new BackgroundFill(Color.web("#048d04"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -55,39 +65,21 @@ public class CustomGridPane extends GridPane {
 		setFillHeight(g1, true);
 		setFillHeight(g2, true);
 		this.add(g2, 0, 2);
-		
 		Pane p = new Pane();
 		p.setPrefSize(400, 400);
-//		p.setBackground(new Background(new BackgroundFill(Color.web("#31b82c"), CornerRadii.EMPTY, Insets.EMPTY)));
 		this.add(p, 0, 1);
-		
-//		Pane p1 = new Pane();
-//		p1.setPrefSize(400, 400);
-//		p1.setBackground(new Background(new BackgroundFill(Color.web("#ea1515"), CornerRadii.EMPTY, Insets.EMPTY)));
 		banco.disegnaBanco();
 		this.add(banco, 1, 1);
-//		notifiche.appendi(banco);
-		
 		Pane p3 = new Pane();
 		p3.setPrefSize(400, 400);
 		
 		this.add(p3, 2, 1);
-//		
-//		p.getChildren().add(punteggioG1);
-//		Pane p2 = new Pane();
-//		p2.setPrefSize(600, 800);
-//		p2.getChildren().add(punteggioG2);
 		aggiorna();
 	}
 	
-	
-	
 	public void aggiorna(){
-	/*	carteSulBanco.getChildren().clear();
-		for (int i : b.getBanco().keySet()) {
-			carteSulBanco.getChildren().add(new ImageView(b.getBanco().get(i).getImg()));
-		}*/
 		banco.aggiorna();
+		aggiornaTurno();
 		g1.disegnaCarte();
 		g2.disegnaCarte();
 		punteggioG1.setText(b.getG1().getNome() + " ha : "+Integer.toString(b.getG1().getPunteggio()) + " punti");
@@ -96,8 +88,9 @@ public class CustomGridPane extends GridPane {
 	
 	public void aggiornaTurno(){
 		if(b.getTurno() == 0 ){
-//			turno.setText();
-		}
+			turno.setText("Tocca a " + b.getG1().getNome() + " !!! ");
+		}else
+			turno.setText("Tocca a " + b.getG2().getNome() + " !!! ");
 	}
 	
 	private void setCostraints(){
@@ -117,6 +110,18 @@ public class CustomGridPane extends GridPane {
 		RowConstraints row3 = new RowConstraints();
 		row3.setPercentHeight(20);
 		this.getRowConstraints().addAll(row1,row2,row3);
+		
+		ColumnConstraints columnMypane = new ColumnConstraints();
+		columnMypane.setPercentWidth(100);
+		RowConstraints rowmMypane1 = new RowConstraints();
+		rowmMypane1.setPercentHeight(50);
+		RowConstraints rowmMypane2 = new RowConstraints();
+		rowmMypane2.setPercentHeight(50);
+		
+		this.mypaneLeft.getColumnConstraints().add(columnMypane);
+		this.mypaneLeft.getRowConstraints().addAll(rowmMypane1,rowmMypane2);
+		this.mypaneRight.getColumnConstraints().add(columnMypane);
+		this.mypaneRight.getRowConstraints().addAll(rowmMypane1,rowmMypane2);
 	}
 	
 	

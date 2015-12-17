@@ -26,10 +26,14 @@ public class BancoGUI extends GridPane {
 	private HBox banco;
 	private StackPane mazzo;
 	private ImageView briscola;
+	private Text numero;
 	
 	public BancoGUI(BriscolaManager b) {
 		this.b = b;
+		numero = new Text();
+
 		this.mazzo = new StackPane();
+		mazzo.getStylesheets().add("file:css/style.css");
 		mazzo.setAlignment(Pos.CENTER);
 		setCostraints();
 		this.setHgap(5);
@@ -39,6 +43,7 @@ public class BancoGUI extends GridPane {
 		//this.add(p1, 0, 0);
 		
 		banco = new HBox();
+//		banco.getStylesheets().add("file:css/style.css");
 		banco.setBackground(new Background(new BackgroundFill(Color.web("#219621"), CornerRadii.EMPTY, Insets.EMPTY)));
 		setRowSpan(banco, 2);
 		this.add(banco, 1, 0);
@@ -83,8 +88,9 @@ public class BancoGUI extends GridPane {
 			cartaMazzo.setFitHeight(screen.getHeight()*0.18);
 			cartaMazzo.setFitWidth((screen.getHeight()*0.18) - 10.0);
 			mazzo.getChildren().add(cartaMazzo);
-			Text numero = new Text(Integer.toString(b.getMazzo().getMazzo().size()));
-			numero.setStyle("-fx-font: 100px Tahoma; -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%); -fx-stroke: black; -fx-stroke-width: 1;");
+			numero = new Text(Integer.toString(b.getMazzo().getMazzo().size()));
+			numero.getStyleClass().add("numeromazzo");
+			//numero.setStyle("-fx-font: 100px Tahoma; -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%); -fx-stroke: black; -fx-stroke-width: 1;");
 			
 			mazzo.getChildren().add(numero);
 			this.add(mazzo, 0, 1);
