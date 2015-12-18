@@ -1,0 +1,41 @@
+package jdlv;
+import logic.*;
+import java.util.*;
+
+public class BriscolaAI {
+
+	private BriscolaManager manager;
+	private List <CartaJDLV> mazzo;
+	private List <CartaJDLV> carte;
+	private List <CartaJDLV> manoGiocatore;
+	private HashMap<Integer, CartaJDLV> banco;
+	private List<CartaJDLV> soluzione;
+	
+	public BriscolaAI(BriscolaManager manager) {
+		this.manager = manager;
+		this.soluzione = new ArrayList<CartaJDLV>();
+		this.carte = new ArrayList<CartaJDLV>();
+		this.manoGiocatore = new ArrayList<CartaJDLV>();
+		this.mazzo = new ArrayList<CartaJDLV>();
+		this.banco = new HashMap<Integer, CartaJDLV>();
+	}
+	
+	public void gioca(){
+		List<Carta> mieCarte = manager.getG1().getMieCarte();
+		List<Carta> cartePrese = manager.getG1().getCartePrese();
+		
+		for(int i=0; i<mieCarte.size(); i++){
+			Carta c = mieCarte.get(i);
+			CartaJDLV cartaJDLV = new CartaJDLV(c.getId(),c.getSeme(),c.getValore());
+			carte.add(cartaJDLV);
+		}
+		
+		<#
+		IN = carte :: carta;
+		IN = banco :: banco;
+		IN = manoGiocatore :: manoGiocatore;
+		OUT = soluzione :: gioco;
+		FILE = "DLV/briscolaDLV.txt";
+			#>
+	}
+}
