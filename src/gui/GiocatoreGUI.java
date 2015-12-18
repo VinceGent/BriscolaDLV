@@ -11,6 +11,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import logic.BriscolaManager;
 import logic.Carta;
@@ -19,12 +20,14 @@ import logic.Giocatore;
 public class GiocatoreGUI extends HBox{
 
 	private Giocatore g;
+
 	private BriscolaManager b;
 	private List<CartaGUI> carteDisegnate;
 	
 	public GiocatoreGUI(Giocatore g , BriscolaManager b) {
 		this.g = g;
 		this.b = b;
+		
 		this.carteDisegnate = new ArrayList<CartaGUI>();
 		this.setAlignment(Pos.CENTER);
 	}
@@ -39,7 +42,6 @@ public class GiocatoreGUI extends HBox{
 				
 					CartaGUI tmp = (CartaGUI) arg0.getTarget();
 					if(b.gioca(tmp.getC())){
-						System.out.println(arg0.getTarget().getClass());
 						tmp.setUsata(true);
 						ManagerAggiornamento.notifica();
 					}
@@ -56,8 +58,8 @@ public class GiocatoreGUI extends HBox{
 //			System.out.println("scene height " + getScene().getHeight());
 			CartaGUI carta = new CartaGUI(c);
 			Rectangle2D screen = Screen.getPrimary().getVisualBounds();
-			carta.setFitHeight(screen.getHeight()*0.18);
-			carta.setFitWidth((screen.getHeight()*0.18) - 15.0);
+			carta.setFitHeight(screen.getHeight()*0.2);
+			carta.setFitWidth((screen.getHeight()*0.2) - 15.0);
 //			this.carte.add(carta);
 			carteDisegnate.add(carta);
 			//this.disegna.add(true);

@@ -17,7 +17,7 @@ public class MainFrame extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		b = new BriscolaManager();
-		b.nuovaPartita("Eliana", "Piera");
+		b.nuovaPartita("Mario", "Piera");
 		main = new CustomGridPane(b);
 		arg0.setTitle("BriscolaDLV");
 	    Rectangle2D screen = Screen.getPrimary().getVisualBounds();

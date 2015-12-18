@@ -42,11 +42,11 @@ public class BancoGUI extends GridPane {
 //		p1.setBackground(new Background(new BackgroundFill(Color.web("#ea1515"), CornerRadii.EMPTY, Insets.EMPTY)));
 		//this.add(p1, 0, 0);
 		
-		banco = new HBox();
+		setBanco(new HBox());
 //		banco.getStylesheets().add("file:css/style.css");
-		banco.setBackground(new Background(new BackgroundFill(Color.web("#219621"), CornerRadii.EMPTY, Insets.EMPTY)));
-		setRowSpan(banco, 2);
-		this.add(banco, 1, 0);
+		getHBoxBanco().setBackground(new Background(new BackgroundFill(Color.web("#219621"), CornerRadii.EMPTY, Insets.EMPTY)));
+		setRowSpan(getHBoxBanco(), 2);
+		this.add(getHBoxBanco(), 1, 0);
 		
 		Pane p3 = new Pane();
 //		p3.setBackground(new Background(new BackgroundFill(Color.web("#8b81ff"), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -90,7 +90,6 @@ public class BancoGUI extends GridPane {
 			mazzo.getChildren().add(cartaMazzo);
 			numero = new Text(Integer.toString(b.getMazzo().getMazzo().size()));
 			numero.getStyleClass().add("numeromazzo");
-			//numero.setStyle("-fx-font: 100px Tahoma; -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, red 50%); -fx-stroke: black; -fx-stroke-width: 1;");
 			
 			mazzo.getChildren().add(numero);
 			this.add(mazzo, 0, 1);
@@ -102,7 +101,7 @@ public class BancoGUI extends GridPane {
 				ImageView suBanco  = new ImageView(b.getBanco().get(i).getImg());
 				suBanco.setFitHeight(screen.getHeight()*0.18);
 				suBanco.setFitWidth((screen.getHeight()*0.18) - 10.0);
-				banco.getChildren().add(suBanco);
+				getHBoxBanco().getChildren().add(suBanco);
 				
 			}
 		}
@@ -116,18 +115,17 @@ public class BancoGUI extends GridPane {
 			tmp.setText(Integer.toString(b.getMazzo().getMazzo().size()));
 			mazzo.getChildren().add(tmp);
 		}
+		getHBoxBanco().getChildren().clear();
 		if(b.getBanco().size() > 0){
-			System.out.println("size di banco " + b.getBanco().keySet().size());
 			for (int i : b.getBanco().keySet()) {
-				System.out.println("int i  " + i);
 				ImageView suBanco  = new ImageView(b.getBanco().get(i).getImg());
 				suBanco.setFitHeight(screen.getHeight()*0.18);
 				suBanco.setFitWidth((screen.getHeight()*0.18) - 10.0);
-				banco.getChildren().add(suBanco);
+				getHBoxBanco().getChildren().add(suBanco);
 			}
 		}
 		if(b.getBanco().size() == 0 )
-			banco.getChildren().clear();
+			getHBoxBanco().getChildren().clear();
 		
 		if(b.getMazzo().getMazzo().size() == 0){
 			mazzo.getChildren().clear();
@@ -135,6 +133,14 @@ public class BancoGUI extends GridPane {
 			
 		}
 		
+	}
+
+	public HBox getHBoxBanco() {
+		return banco;
+	}
+
+	public void setBanco(HBox banco) {
+		this.banco = banco;
 	}
 
 	
