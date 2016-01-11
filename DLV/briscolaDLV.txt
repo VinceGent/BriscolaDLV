@@ -19,8 +19,10 @@ mioTurno(1) :- #count{ ID : banco(ID,S)} = 0.
 
 presa(C,S, C1,S1, Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
 altraPresa(C,S, C1,S1 , Tot) :- nonGioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
- 
+
+%altrapresa supeflua controllare 
  :~ altraPresa(C,S, C1,S1 , Tot). [ Tot : 4]
+
 
  :~ presa(C,S, C1,S1 , Tot), carta(C1,S1,0). [Tot : 5]
 
@@ -79,13 +81,13 @@ carta(8,spade, 2).
 carta(9,spade, 3).
 carta(10,spade, 4).
 
-manoGiocatore(1,denari).
-manoGiocatore(4,coppe).
-manoGiocatore(6,spade).
+%manoGiocatore(1,denari).
+%manoGiocatore(4,coppe).
+%manoGiocatore(6,spade).
 
 %manoAvversario(3, denari).
 %manoAvversario(6, bastoni).
 %manoAvversario(5, denari).
 
-briscola(coppe).
-banco(8,spade).
+%briscola(coppe).
+%banco(8,spade).

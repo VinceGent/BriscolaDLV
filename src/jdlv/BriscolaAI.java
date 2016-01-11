@@ -6,18 +6,14 @@ import java.util.*;
 public  class BriscolaAI{
 
 private BriscolaManager manager;
-private List<CartaJDLV> mazzo;
-private List<CartaJDLV> carte;
-private List<CartaJDLV> manoGiocatore;
-private HashMap<Integer,CartaJDLV> banco;
-private List<CartaJDLV> soluzione;
+private List<CartaDaGiocareJDLV> manoGiocatore;
+private List<BancoJDLV> banco;
+private List<CartaDaGiocareJDLV> soluzione;
 public BriscolaAI(BriscolaManager manager){
  this .manager=manager;
- this .soluzione= new ArrayList<CartaJDLV>();
- this .carte= new ArrayList<CartaJDLV>();
- this .manoGiocatore= new ArrayList<CartaJDLV>();
- this .mazzo= new ArrayList<CartaJDLV>();
- this .banco= new HashMap<Integer,CartaJDLV>();
+ this .soluzione= new ArrayList<CartaDaGiocareJDLV>();
+ this .manoGiocatore= new ArrayList<CartaDaGiocareJDLV>();
+ this .banco= new ArrayList<BancoJDLV>();
 }
 public  void  gioca(){
 List<Carta> mieCarte=manager.getG1().getMieCarte();
@@ -25,9 +21,14 @@ List<Carta> cartePrese=manager.getG1().getCartePrese();
 for(int i= 0 ;i<mieCarte.size();i++)
 {
 Carta c=mieCarte.get(i);
-CartaJDLV cartaJDLV= new CartaJDLV(c.getId(),c.getSeme(),c.getValore());
-carte.add(cartaJDLV);
+CartaDaGiocareJDLV cartaJDLV= new CartaDaGiocareJDLV(c.getId(),c.getSeme());
+manoGiocatore.add(cartaJDLV);
 }
+for(int i:manager.getBanco().keySet())
+{
+banco.add( new BancoJDLV(manager.getBanco().get(i).getId(),manager.getBanco().get(i).getSeme()));
+}
+boolean solution= true ;
 
 	// ---- START - startProgram ---- 
 it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Creation EXECUTING JDLV module.");
@@ -37,12 +38,6 @@ java.lang.StringBuffer _JDLV_PROGRAM_BUFFER_EXECUTING=new java.lang.StringBuffer
 it.unical.mat.wrapper.DLVInvocation _JDLV_INVOCATION_EXECUTING;
 
 	// ---- END - startProgram ---- 
-
-	// ---- START - addInMapping ---- 
-_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(carte,"carta"));
-it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'carte::carta' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(carte,"carta"), 0));
-
-	// ---- END - addInMapping ---- 
 
 	// ---- START - addInMapping ---- 
 _JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(banco,"banco"));
@@ -72,10 +67,12 @@ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Start execu
 _JDLV_INVOCATION_EXECUTING.run();
 while(_BUFFERED_HANDLER_EXECUTING.hasMoreModels()){
 it.unical.mat.wrapper.Model _temporary_JDLV_MODELEXECUTING=_BUFFERED_HANDLER_EXECUTING.nextModel();
-it.unical.mat.jdlv.program.TypeSolver.loadPredicate(soluzione, "gioco",_temporary_JDLV_MODELEXECUTING,CartaJDLV.class);
+it.unical.mat.jdlv.program.TypeSolver.loadPredicate(soluzione, "gioco",_temporary_JDLV_MODELEXECUTING,CartaDaGiocareJDLV.class);
 it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Process new answer_set"+ '\n' + "Results:"+ '\n'+ "soluzione " + soluzione.size() + " elements"+ '\n' + it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyObject(soluzione,0));
 }
 if(_JDLV_INVOCATION_EXECUTING.haveModel()==false){
+solution= false ;
+System.out.println( "Nessuna Soluzione" );
 }
 if(!_JDLV_INVOCATION_EXECUTING.getErrors().isEmpty()){
 throw new java.lang.RuntimeException(_JDLV_INVOCATION_EXECUTING.getErrors().get(0).getText());
@@ -87,6 +84,11 @@ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logErrorMessage(_JDLV_EXCEP
 _JDLV_PROGRAM_EXECUTING.cleanText();
 
 	// ---- END - prepareJDLVCall ---- 
+if(solution)
+System.out.println( "Soluzione trovata" );
+}
+public List<CartaDaGiocareJDLV> getSoluzione(){
+return soluzione;
 }
 }
 

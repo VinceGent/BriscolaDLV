@@ -19,7 +19,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import jdlv.CartaDaGiocareJDLV;
 import logic.BriscolaManager;
+import logic.Carta;
 
 public class CustomGridPane extends GridPane {
 
@@ -125,6 +127,21 @@ public class CustomGridPane extends GridPane {
 			banco.aggiorna();
 			b.controllaGiocata();
 			bottone.setVisible(true);
+		}
+		
+		if(b.getTurno() == 0){
+			System.out.println("chitemmu joca");
+			b.getIntelligenza().gioca();
+			if(b.getIntelligenza().getSoluzione().size() > 0){
+				CartaDaGiocareJDLV sol = b.getIntelligenza().getSoluzione().get(0);
+				for (Carta c : b.getG1().getMieCarte()) {
+					if( c.getId() == sol.getId() && c.getSeme().equals(sol.getSeme())){
+						if(b.gioca(c))
+							aggiorna();
+						
+					}
+				}
+			}
 		}
 	}
 	

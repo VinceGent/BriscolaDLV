@@ -2,17 +2,20 @@ package logic;
 
 import java.util.HashMap;
 
+import jdlv.BriscolaAI;
+
 public class BriscolaManager {
 
 	private Mazzo mazzo;
 	private Giocatore g1;
 	private Giocatore g2;
 	private Carta briscola;
-	private int turno = 0;
+	private int turno = 1;
 	private int giocoMano = 0;
 	private int punteggioG1 = 0;
 	private int punteggioG2 = 0;
 	private HashMap<Integer, Carta> banco;
+	private BriscolaAI intelligenza;
 	
 	public BriscolaManager() {
 		
@@ -25,6 +28,7 @@ public class BriscolaManager {
 	
 	public void nuovaPartita(String g1, String g2){
 		
+		this.intelligenza = new BriscolaAI(this);
 		this.mazzo = new Mazzo();
 		this.mazzo.mischiaMazzo();
 		this.setG1(new Giocatore(g1));
@@ -326,6 +330,14 @@ public class BriscolaManager {
 	private void cambiaTurno(){
 		if(turno == 0) turno = 1;
 		else turno = 0;
+	}
+
+	public BriscolaAI getIntelligenza() {
+		return intelligenza;
+	}
+
+	public void setIntelligenza(BriscolaAI intelligenza) {
+		this.intelligenza = intelligenza;
 	}
 	
 	

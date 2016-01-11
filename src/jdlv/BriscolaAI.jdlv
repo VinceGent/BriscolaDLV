@@ -5,19 +5,15 @@ import java.util.*;
 public class BriscolaAI {
 
 	private BriscolaManager manager;
-	private List <CartaJDLV> mazzo;
-	private List <CartaJDLV> carte;
-	private List <CartaJDLV> manoGiocatore;
-	private HashMap<Integer, CartaJDLV> banco;
-	private List<CartaJDLV> soluzione;
+	private List <CartaDaGiocareJDLV> manoGiocatore;
+	private List<BancoJDLV> banco;
+	private List<CartaDaGiocareJDLV> soluzione;
 	
 	public BriscolaAI(BriscolaManager manager) {
 		this.manager = manager;
-		this.soluzione = new ArrayList<CartaJDLV>();
-		this.carte = new ArrayList<CartaJDLV>();
-		this.manoGiocatore = new ArrayList<CartaJDLV>();
-		this.mazzo = new ArrayList<CartaJDLV>();
-		this.banco = new HashMap<Integer, CartaJDLV>();
+		this.soluzione = new ArrayList<CartaDaGiocareJDLV>();
+		this.manoGiocatore = new ArrayList<CartaDaGiocareJDLV>();
+		this.banco = new ArrayList<BancoJDLV>();
 	}
 	
 	public void gioca(){
@@ -26,16 +22,36 @@ public class BriscolaAI {
 		
 		for(int i=0; i<mieCarte.size(); i++){
 			Carta c = mieCarte.get(i);
-			CartaJDLV cartaJDLV = new CartaJDLV(c.getId(),c.getSeme(),c.getValore());
-			carte.add(cartaJDLV);
+			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(),c.getSeme());
+			manoGiocatore.add(cartaJDLV);
+		}
+		for( int i : manager.getBanco().keySet()){
+			
+			banco.add(new BancoJDLV( manager.getBanco().get(i).getId() , manager.getBanco().get(i).getSeme()  ));
+			
 		}
 		
+		boolean solution = true;
+		
 		<#
-		IN = carte :: carta;
 		IN = banco :: banco;
 		IN = manoGiocatore :: manoGiocatore;
 		OUT = soluzione :: gioco;
 		FILE = "DLV/briscolaDLV.txt";
-			#>
+		#>
+			
+		if_no_answerset{
+			solution = false;
+			System.out.println("Nessuna Soluzione");
+		}
+		
+		if(solution)
+			System.out.println("Soluzione trovata");	
 	}
+	
+	public List<CartaDaGiocareJDLV> getSoluzione(){
+		return soluzione;
+	} 
+	
+	
 }
