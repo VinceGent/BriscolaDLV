@@ -1,0 +1,54 @@
+package jdlv;
+import logic.*;
+import java.util.*;
+
+public class BancoVuotoAI{
+	private BriscolaManager manager;
+	private List <CartaDaGiocareJDLV> manoGiocatore;
+	private List<BancoJDLV> banco;
+	private List<CartaDaGiocareJDLV> soluzione;
+	
+	public BancoVuotoAI(BriscolaManager manager){
+		this.manager = manager;
+		this.soluzione = new ArrayList<CartaDaGiocareJDLV>();
+		this.manoGiocatore = new ArrayList<CartaDaGiocareJDLV>();
+		this.banco = new ArrayList<BancoJDLV>();
+	}
+	
+	public void gioca(){
+		List<Carta> mieCarte = manager.getG1().getMieCarte();
+		List<Carta> cartePrese = manager.getG1().getCartePrese();
+		
+		for(int i=0; i<mieCarte.size(); i++){
+			Carta c = mieCarte.get(i);
+			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(),c.getSeme());
+			manoGiocatore.add(cartaJDLV);
+		}
+		for( int i : manager.getBanco().keySet()){
+			
+			banco.add(new BancoJDLV( manager.getBanco().get(i).getId() , manager.getBanco().get(i).getSeme()  ));
+			
+		}
+		
+		boolean solution = true;
+		<#
+		IN = banco :: banco;
+		IN = manoGiocatore :: manoGiocatore;
+		OUT = soluzione :: gioco;
+		FILE = "DLV/bancoVuotoDLV.txt";
+		#>
+			
+		if_no_answerset{
+			solution = false;
+			System.out.println("Nessuna Soluzione");
+		}
+		
+		if(solution)
+			System.out.println("Soluzione trovata");	
+	}
+	
+	public List<CartaDaGiocareJDLV> getSoluzione(){
+		return soluzione;
+	} 
+	
+}

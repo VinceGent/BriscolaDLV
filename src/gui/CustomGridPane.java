@@ -4,6 +4,7 @@ import java.awt.Cursor;
 
 import com.sun.glass.events.MouseEvent;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -26,18 +27,18 @@ import logic.Carta;
 public class CustomGridPane extends GridPane {
 
 	private static ManagerAggiornamento notifiche;
-	private BriscolaManager b;
-	private Text punteggioG1;
-	private Text punteggioG2;
-	private Text turno;
+	private static BriscolaManager b;
+	private static Text punteggioG1;
+	private static Text punteggioG2;
+	private static Text turno;
 	private Text nomeG1;
 	private Text nomeG2;
-	private BancoGUI banco;
-	private GiocatoreGUI g1;
-	private GiocatoreGUI g2;
+	private static BancoGUI banco;
+	private static GiocatoreGUI g1;
+	private static GiocatoreGUI g2;
 	private GridPane mypaneLeft;
 	private GridPane mypaneRight;
-	private Button bottone;
+	private static Button bottone;
 	
 	public CustomGridPane(BriscolaManager b) {
 		
@@ -112,9 +113,9 @@ public class CustomGridPane extends GridPane {
 		aggiorna();
 	}
 	
-	public void aggiorna(){
+	public static void aggiorna(){
 		
-		this.bottone.setVisible(false);
+		bottone.setVisible(false);
 		banco.aggiorna();
 		aggiornaTurno();
 		g1.disegnaCarte();
@@ -130,22 +131,25 @@ public class CustomGridPane extends GridPane {
 		}
 		
 		if(b.getTurno() == 0){
-			System.out.println("chitemmu joca");
-			b.getIntelligenza().gioca();
-			if(b.getIntelligenza().getSoluzione().size() > 0){
-				CartaDaGiocareJDLV sol = b.getIntelligenza().getSoluzione().get(0);
-				for (Carta c : b.getG1().getMieCarte()) {
-					if( c.getId() == sol.getId() && c.getSeme().equals(sol.getSeme())){
-						if(b.gioca(c))
-							aggiorna();
-						
+			 if(b.getBanco().size() >0) {
+				System.out.println("chitemmu joca");
+				b.getIntelligenza().gioca();
+				if(b.getIntelligenza().getSoluzione().size() > 0){
+					CartaDaGiocareJDLV sol = b.getIntelligenza().getSoluzione().get(0);
+					for (Carta c : b.getG1().getMieCarte()) {
+						if( c.getId() == sol.getId() && c.getSeme().equals(sol.getSeme())){
+							if(b.gioca(c)){
+								aggiorna();
+								System.out.println("Turno di: "+b.getTurno());
+							}
+						}
 					}
 				}
 			}
 		}
 	}
 	
-	public void aggiornaTurno(){
+	public static void aggiornaTurno(){
 		if(b.getTurno() == 0 ){
 			turno.setText("Tocca a " + b.getG1().getNome() + " !!! ");
 		}else
