@@ -4,6 +4,24 @@ gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
 
 :- not #count{ C,S : gioco(C,S) }  = 1.
 
+%carteGiocate(C,S,V).
+carteDaGiocare(C,S,V):-not carteGiocate(C,S,V),carta(C,S,V).
+carteGiocateOMie(C,S) :- carteGiocate(C,S,_).
+carteGiocateOMie(C,S):- manoGiocatore(C,S).
+
+carteRimasteNonMie(C,S) :- carta(C,S,_), not carteGiocateOMie(C,S).
+
+rimaneCartaCheSupera(C,S,C1,S) :- carteRimasteNonMie(C1,S), manoGiocatore(C,S),carta(C,S,V),carta(C1,S,V1),V1>V. 
+
+avversarioNonPuoPrendere(C,S) :- briscoleFinite, not rimaneCartaCheSupera(C,S,C1,S1),carteRimasteNonMie(C1,S1),manoGiocatore(C,S).
+
+
+briscoleFinite :- not rimangonoBriscole.
+
+rimangonoBriscole :- carteRimasteNonMie(_,S),briscola(S).
+
+caricoSicuro(C,S) :- manoGiocatore(C,S),carta(C,S,V),V>9,not briscola(S),avversarioNonPuoPrendere(C,S).
+
 
 almenoDueCarichi :- #sum{V: carta(C,S,V),manoGiocatore(C,S)}>19.
 
@@ -12,6 +30,20 @@ gioco(C,S) :- carta(C,S,V),manoGiocatore(C,S), V<10,almenoDueCarichi.
 :~ gioco(C,S), briscola(S). [ 1 : 2]
 
 :~ gioco(C,S), carta(C,S,V). [V : 1]
+
+
+manoGiocatore(3,denari).
+manoGiocatore(4,coppe).
+manoGiocatore(3,spade).
+
+carteGiocate(1,spade,11).
+carteGiocate(10,denari,4).
+%carteGiocate(3,spade,10).
+%carteGiocate(10,spade,4).
+%carteGiocate(9,spade,3).
+%carteGiocate(8,spade,2).
+
+briscola(coppe).
 
 carta(1,denari, 11).
 carta(2,denari, 0).
