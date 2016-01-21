@@ -18,6 +18,8 @@ public BancoVuotoAI(BriscolaManager manager){
 public  void  gioca(){
 List<Carta> mieCarte=manager.getG1().getMieCarte();
 List<Carta> cartePrese=manager.getG1().getCartePrese();
+manoGiocatore.clear();
+banco.clear();
 for(int i= 0 ;i<mieCarte.size();i++)
 {
 Carta c=mieCarte.get(i);
