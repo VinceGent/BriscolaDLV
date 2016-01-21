@@ -27,7 +27,7 @@ import logic.Carta;
 
 public class CustomGridPane extends GridPane{
 
-	private static AIThread notifiche;
+	private AIThread aiThread;
 	private static BriscolaManager b;
 	private static Text punteggioG1;
 	private static Text punteggioG2;
@@ -47,7 +47,7 @@ public class CustomGridPane extends GridPane{
 		
 		this.mypaneLeft = new GridPane();
 		this.mypaneRight = new GridPane();
-		notifiche = new AIThread(this , b );
+		aiThread = new AIThread(this , b );
 		this.setGridLinesVisible(false);
 		this.nomeG1 = new Text(b.getG1().getNome());
 		this.nomeG2 = new Text(b.getG2().getNome());
@@ -113,7 +113,7 @@ public class CustomGridPane extends GridPane{
 		this.add(p3, 2, 1);
 		aggiorna();
 
-		notifiche.start();
+		aiThread.start();
 
 	}
 	

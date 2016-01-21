@@ -14,7 +14,7 @@ public class BriscolaManager {
 	private Giocatore g2;
 	private Carta briscola;
 	private int turno = 1;
-	private int giocoMano = 0;
+	private int giocoMano = 1;
 	private int punteggioG1 = 0;
 	private int punteggioG2 = 0;
 	private HashMap<Integer, Carta> banco;
@@ -32,12 +32,12 @@ public class BriscolaManager {
 	
 	public void nuovaPartita(String g1, String g2){
 		
-		this.intelligenza = new BriscolaAI(this);
-		this.intelligenzaBancoVuoto = new BancoVuotoAI(this);
 		this.mazzo = new Mazzo();
 		this.mazzo.mischiaMazzo();
 		this.setG1(new Giocatore(g1));
+		System.out.println("g1 è : " + this.g1.getNome());
 		this.setG2(new Giocatore(g2));
+		System.out.println("g2 è : "+ this.g2.getNome());
 		this.g1.setPunteggio(0);
 		this.g2.setPunteggio(0);
 		if(turno == 0){
@@ -64,7 +64,8 @@ public class BriscolaManager {
 		this.briscola = mazzo.getMazzo().get(0);
 		this.mazzo.getMazzo().remove(0);
 		
-		
+		this.intelligenza = new BriscolaAI(this);
+		this.intelligenzaBancoVuoto = new BancoVuotoAI(this);
 		
 	}
 	

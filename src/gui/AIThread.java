@@ -27,11 +27,11 @@ public class AIThread extends Thread {
 				System.out.println("tocca a tia joca");
 				 if(manager.getBanco().size() >0){
 					System.out.println("AI risponde alla giocata");
-					rispondiAllaGiocata();
+//					rispondiAllaGiocata();
 					
 				}else if(manager.getBanco().isEmpty()){ //banco == 0
 					System.out.println("tocca ad AI e gioca");
-					giocaBancoVuoto();
+//					giocaBancoVuoto();
 				}
 			}
 			
