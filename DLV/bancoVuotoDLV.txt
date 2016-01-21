@@ -32,18 +32,18 @@ gioco(C,S) :- carta(C,S,V),manoGiocatore(C,S), V<10,almenoDueCarichi.
 :~ gioco(C,S), carta(C,S,V). [V : 1]
 
 
-manoGiocatore(3,denari).
-manoGiocatore(4,coppe).
-manoGiocatore(3,spade).
+%manoGiocatore(3,denari).
+%manoGiocatore(4,coppe).
+%manoGiocatore(3,spade).
 
-carteGiocate(1,spade,11).
-carteGiocate(10,denari,4).
+%carteGiocate(1,spade,11).
+%carteGiocate(10,denari,4).
 %carteGiocate(3,spade,10).
 %carteGiocate(10,spade,4).
 %carteGiocate(9,spade,3).
 %carteGiocate(8,spade,2).
 
-briscola(coppe).
+%briscola(coppe).
 
 carta(1,denari, 11).
 carta(2,denari, 0).

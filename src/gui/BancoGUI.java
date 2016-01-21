@@ -1,5 +1,9 @@
 package gui;
 
+import com.sun.scenario.animation.AnimationPulse;
+
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,6 +31,8 @@ public class BancoGUI extends GridPane {
 	private StackPane mazzo;
 	private ImageView briscola;
 	private Text numero;
+	private boolean cambiato = false;
+	
 	
 	public BancoGUI(BriscolaManager b) {
 		this.b = b;
@@ -55,7 +61,12 @@ public class BancoGUI extends GridPane {
 		Pane p4 = new Pane();
 //		p4.setBackground(new Background(new BackgroundFill(Color.web("#ffdd33"), CornerRadii.EMPTY, Insets.EMPTY)));
 		this.add(p4, 1, 1);
-		
+		new AnimationTimer() {
+			
+			@Override
+			public void handle(long arg0) {
+				aggiorna();			}
+		}.start();
 		
 	}
 	
@@ -107,6 +118,7 @@ public class BancoGUI extends GridPane {
 		}
 		
 	}
+	
 	
 	public void aggiorna(){
 		if(b.getMazzo().getMazzo().size() > 1){

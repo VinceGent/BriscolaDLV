@@ -5,6 +5,7 @@ import java.awt.Cursor;
 import com.sun.glass.events.MouseEvent;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -24,9 +25,9 @@ import jdlv.CartaDaGiocareJDLV;
 import logic.BriscolaManager;
 import logic.Carta;
 
-public class CustomGridPane extends GridPane {
+public class CustomGridPane extends GridPane{
 
-	private static ManagerAggiornamento notifiche;
+	private static AIThread notifiche;
 	private static BriscolaManager b;
 	private static Text punteggioG1;
 	private static Text punteggioG2;
@@ -46,7 +47,7 @@ public class CustomGridPane extends GridPane {
 		
 		this.mypaneLeft = new GridPane();
 		this.mypaneRight = new GridPane();
-		notifiche = new ManagerAggiornamento(this);
+		notifiche = new AIThread(this , b );
 		this.setGridLinesVisible(false);
 		this.nomeG1 = new Text(b.getG1().getNome());
 		this.nomeG2 = new Text(b.getG2().getNome());
@@ -111,26 +112,22 @@ public class CustomGridPane extends GridPane {
 		
 		this.add(p3, 2, 1);
 		aggiorna();
+
+		notifiche.start();
+
 	}
 	
+	
 	public static void aggiorna(){
-		
-		bottone.setVisible(false);
-		banco.aggiorna();
+//		System.out.println("il turno è "+ b.getTurno());
+//		bottone.setVisible(false);
+//		banco.aggiorna();
 		aggiornaTurno();
-		g1.disegnaCarte();
-		g2.disegnaCarte();
 		punteggioG1.setText(b.getG1().getNome() + " ha : "+Integer.toString(b.getG1().getPunteggio()) + " punti");
 		punteggioG2.setText(b.getG2().getNome()+ " ha : "+Integer.toString(b.getG2().getPunteggio()) + " punti");
+//		System.out.println(" banco " + b.getBanco().size());
 		
-		System.out.println(" banco " + b.getBanco().size());
-		if(b.getBanco().size() == 2){
-			banco.aggiorna();
-			b.controllaGiocata();
-			bottone.setVisible(true);
-		}
-		
-		if(b.getTurno() == 0){
+	/*	if(b.getTurno() == 0){
 			 if(b.getBanco().size() >0) {
 				System.out.println("chitemmu joca");
 				b.getIntelligenza().gioca();
@@ -139,14 +136,14 @@ public class CustomGridPane extends GridPane {
 					for (Carta c : b.getG1().getMieCarte()) {
 						if( c.getId() == sol.getId() && c.getSeme().equals(sol.getSeme())){
 							if(b.gioca(c)){
-								aggiorna();
+								//aggiorna();
 								System.out.println("Turno di: "+b.getTurno());
 							}
 						}
 					}
 				}
 			}
-		}
+		} */
 	}
 	
 	public static void aggiornaTurno(){
@@ -186,6 +183,22 @@ public class CustomGridPane extends GridPane {
 		this.mypaneRight.getColumnConstraints().add(columnMypane);
 		this.mypaneRight.getRowConstraints().addAll(rowmMypane1,rowmMypane2);
 	}
+
+
+/*	public void run() {
+		// TODO Auto-generated method stub
+		while(true){
+			System.out.println(" is fxthread :  "+Platform.isFxApplicationThread());
+			aggiorna();
+			System.out.println("aggiorno la graficaYOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}*/
 	
 	
 	

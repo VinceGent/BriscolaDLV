@@ -17,7 +17,7 @@ gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
 
 mioTurno(1) :- #count{ ID : banco(ID,S)} = 0.
 
-carteGiocate:- gioco(Carta,Seme);
+carteGiocate:- gioco(Carta,Seme).
 
 presa(C,S, C1,S1, Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
 %altraPresa(C,S, C1,S1 , Tot) :- nonGioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.

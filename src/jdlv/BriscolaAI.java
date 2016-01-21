@@ -18,6 +18,9 @@ public BriscolaAI(BriscolaManager manager){
 public  void  gioca(){
 List<Carta> mieCarte=manager.getG1().getMieCarte();
 List<Carta> cartePrese=manager.getG1().getCartePrese();
+banco.clear();
+soluzione.clear();
+manoGiocatore.clear();
 for(int i= 0 ;i<mieCarte.size();i++)
 {
 Carta c=mieCarte.get(i);

@@ -3,7 +3,13 @@ package gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import com.sun.scenario.animation.AnimationPulse;
+
+import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -30,6 +36,22 @@ public class GiocatoreGUI extends HBox{
 		
 		this.carteDisegnate = new ArrayList<CartaGUI>();
 		this.setAlignment(Pos.CENTER);
+		
+		disegnaCarte();
+		Timer timer = new Timer();
+	    timer.scheduleAtFixedRate(new TimerTask() {
+	        @Override
+	        public void run() {
+	            Platform.runLater(new Runnable() {
+					
+					public void run() {
+						disegnaCarte();
+					}
+				});
+	            System.out.println("RIDISEGNO CARTEEEE");
+	        }
+	    }, 0, 3000);
+
 	}
 	
 	private void initListener(){
@@ -43,7 +65,9 @@ public class GiocatoreGUI extends HBox{
 					CartaGUI tmp = (CartaGUI) arg0.getTarget();
 					if(b.gioca(tmp.getC())){
 						tmp.setUsata(true);
-						ManagerAggiornamento.notifica();
+//						aggiornaCarte();
+//						CustomGridPane.aggiorna();
+						return;
 					}
 					
 				}
@@ -66,10 +90,23 @@ public class GiocatoreGUI extends HBox{
 			this.getChildren().add(carta);
 		}
 	}
+	
 
 	public void disegnaCarte(){
 		initCarte();
 		initListener();
+	}
+	
+	
+	public void aggiornaCarte(){
+		for (Node c : this.getChildren()) {
+			CartaGUI carta = (CartaGUI) c;
+			if(carta.isUsata()){
+				System.out.println(carta.getC().getId() + "   " + carta.getC().getSeme());
+				carta.cambiaCarta(g.getMieCarte().get(2));
+			}
+		}	
+		
 	}
 
 }

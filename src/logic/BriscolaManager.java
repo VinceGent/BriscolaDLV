@@ -1,5 +1,7 @@
 package logic;
 
+import gui.CustomGridPane;
+
 import java.util.HashMap;
 
 import jdlv.BancoVuotoAI;
@@ -61,6 +63,9 @@ public class BriscolaManager {
 		
 		this.briscola = mazzo.getMazzo().get(0);
 		this.mazzo.getMazzo().remove(0);
+		
+		
+		
 	}
 	
 	public boolean gioca(Carta c){
@@ -206,6 +211,7 @@ public class BriscolaManager {
 				}
 			}
 			getBanco().clear();
+			System.out.println("svuoto il banco");
 			pesca();
 			if(finePartita() != -1){
 				System.out.println("Partita Finita");
@@ -246,7 +252,7 @@ public class BriscolaManager {
 				g1.aggiungiCartaInMano(briscola);
 			}
 		}
-		
+		System.out.println("Pescato!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	}
 	
 	public int finePartita(){
