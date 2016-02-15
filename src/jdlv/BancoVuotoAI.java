@@ -115,6 +115,7 @@ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Process new
 if(_JDLV_INVOCATION_EXECUTING.haveModel()==false){
 solution= false ;
 System.out.println( "Nessuna Soluzione" );
+System.out.println( "Soluzione : " +soluzione.size());
 }
 if(!_JDLV_INVOCATION_EXECUTING.getErrors().isEmpty()){
 throw new java.lang.RuntimeException(_JDLV_INVOCATION_EXECUTING.getErrors().get(0).getText());
