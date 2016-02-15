@@ -101,8 +101,8 @@ public class BriscolaManager {
 			
 			Carta cartaG1 = getBanco().get(0);
 			Carta cartaG2 = getBanco().get(1);
-			System.out.println(cartaG1.getId() + "  " + cartaG1.getSeme());
-			System.out.println(cartaG2.getId() + "  " + cartaG2.getSeme());
+			System.out.println("g1 ha giocato: "+cartaG1.getId() + "  " + cartaG1.getSeme());
+			System.out.println("G2 ha giocato: "+cartaG2.getId() + "  " + cartaG2.getSeme());
 			
 			if(cartaG1.getSeme() == briscola.getSeme()){
 				if(cartaG2.getSeme() != briscola.getSeme()){

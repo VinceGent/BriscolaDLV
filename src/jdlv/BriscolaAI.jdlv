@@ -8,25 +8,48 @@ public class BriscolaAI {
 	private List <CartaDaGiocareJDLV> manoGiocatore;
 	private List<BancoJDLV> banco;
 	private List<CartaDaGiocareJDLV> soluzione;
+	private List<CartaDaGiocareJDLV> mioMazzo;
+	private List<CartaDaGiocareJDLV> mazzoAvversario;
+	private BriscolaJDLV briscola;
 	
 	public BriscolaAI(BriscolaManager manager) {
 		this.manager = manager;
+		this.briscola = new BriscolaJDLV(manager.getBriscola().getSeme());
 		this.soluzione = new ArrayList<CartaDaGiocareJDLV>();
 		this.manoGiocatore = new ArrayList<CartaDaGiocareJDLV>();
 		this.banco = new ArrayList<BancoJDLV>();
+		this.mazzoAvversario = new ArrayList<CartaDaGiocareJDLV>(); 
+		this.mioMazzo = new ArrayList<CartaDaGiocareJDLV>();
+		
 	}
 	
 	public void gioca(){
 		List<Carta> mieCarte = manager.getG1().getMieCarte();
 		List<Carta> cartePrese = manager.getG1().getCartePrese();
+		List<Carta> cartePreseAvversario = manager.getG2().getCartePrese();
+		
 		banco.clear();
 		soluzione.clear();
 		manoGiocatore.clear();
+		mioMazzo.clear();
+		mazzoAvversario.clear();
 		for(int i=0; i<mieCarte.size(); i++){
 			Carta c = mieCarte.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(),c.getSeme());
 			manoGiocatore.add(cartaJDLV);
 		}
+		for(int i=0;i<cartePrese.size();i++){
+			Carta c = cartePrese.get(i);
+			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(), c.getSeme());
+			mioMazzo.add(cartaJDLV);
+		}
+		
+		for(int i=0;i<cartePreseAvversario.size();i++){
+			Carta c = cartePreseAvversario.get(i);
+			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(), c.getSeme());
+			mazzoAvversario.add(cartaJDLV);
+		}
+		
 		for( int i : manager.getBanco().keySet()){
 			
 			banco.add(new BancoJDLV( manager.getBanco().get(i).getId() , manager.getBanco().get(i).getSeme()  ));
@@ -38,6 +61,9 @@ public class BriscolaAI {
 		<#
 		IN = banco :: banco;
 		IN = manoGiocatore :: manoGiocatore;
+		IN = mioMazzo :: carteGiocate;
+		IN = mazzoAvversario :: carteGiocate;
+		IN = briscola :: briscola;
 		OUT = soluzione :: gioco;
 		FILE = "DLV/briscolaDLV.txt";
 		#>
