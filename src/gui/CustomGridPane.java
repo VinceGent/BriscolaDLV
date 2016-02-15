@@ -1,12 +1,5 @@
 package gui;
 
-import java.awt.Cursor;
-
-import com.sun.glass.events.MouseEvent;
-
-import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;

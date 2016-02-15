@@ -1,23 +1,16 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.sun.scenario.animation.AnimationPulse;
-
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import logic.BriscolaManager;
 import logic.Carta;
@@ -50,7 +43,7 @@ public class GiocatoreGUI extends HBox{
 				});
 	            System.out.println("RIDISEGNO CARTEEEE");
 	        }
-	    }, 0, 3000);
+	    }, 0, 2000);
 
 	}
 	
