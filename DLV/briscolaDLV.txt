@@ -21,21 +21,32 @@ batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V = V1, C > C1 .
 batte(C,S,C1,S1):- carta(C,S,V), carta(C1,S1,V1), S!=S1, briscola(S) .
 batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, briscola(S) , V > V1 .
 
-%prendoConLoStessoSeme(C,S,Tot) :- nonGioco(C,S),banco(C1,S),batte(C,S,C1,S),carta(C,S,V),carta(C1,S,V1),Tot=V+V1.
+tuttiLisciInMano :- #count{ C,S :manoGiocatore(C,S), carta(C,S,V), V = 0} = 3.
+
+nonprendoConLoStessoSeme(C,S,Tot) :- nonGioco(C,S),banco(C1,S),batte(C,S,C1,S),carta(C,S,V),carta(C1,S,V1),Tot=V+V1.
+
+nonPossoPrendere :- #count{ C,S : presa(C,S, C1,S1, Tot)} = 0.
+
+:- not tuttiLisciInMano,gioco(C,S),presa(C,S, C1,S1, Tot), Tot = 0.
 
 %prendoConBriscola(C,S) :- nonGioco(C,S),banco(C1,S1),briscola(S),S!=S1,carta(C,S,V),V=0,carta(C1,S1,V1),V1>=2.
-
-
-%:~ presa(C,S, C1,S1 , Tot), carta(C1,S1,0). [Tot : 1]
  
-:~ prendoConLoStessoSeme(C,S,Tot). [Tot : 2]
-:~ prendoConBriscola(C,S). [1 : 1]
 
-%:~ gioco(C,S), carta(C,S,V). [V : 2]
-%:~ gioco(C,S), carta(C,S,0). [C : 1]
+:~ nonprendoConLoStessoSeme(C,S,Tot). [Tot : 2]
 
-%punteggio(Tot) :- presa(C,S,C1,S1), #sum{ V  :  carta(C,S, V)}= A , #sum{ V1  : carta(C1,S1, V1)} = B, #int(A), Tot=A+B ,#int(B). 
+%:~ prendoConBriscola(C,S). [1 : 1]
 
+:~ nonPossoPrendere, gioco(C,S), carta(C,S,V). [V : 1]
+
+:~ tuttiLisciInMano, gioco(C,S). [C : 1]
+
+%:~ nonGioco(C,S), presa(C,S, C1,S1, Tot). [Tot : 3]
+
+banco(2, "coppe").
+manoGiocatore(7, "coppe").
+manoGiocatore(5, "coppe").
+manoGiocatore(4, "denari").
+briscola("denari").
 
 carta(1,"denari", 11).
 carta(2,"denari", 0).

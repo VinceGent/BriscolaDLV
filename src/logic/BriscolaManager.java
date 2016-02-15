@@ -70,14 +70,16 @@ public class BriscolaManager {
 			if (g1.getMieCarte().contains(c)) {
 				getBanco().put(0, c);
 				g1.getMieCarte().remove(c);
-				cambiaTurno();
+				if (getBanco().size() < 2)
+					cambiaTurno();
 				return true;
 			}
 		} else {
 			if (g2.getMieCarte().contains(c)) {
 				getBanco().put(1, c);
 				g2.getMieCarte().remove(c);
-				cambiaTurno();
+				if (getBanco().size() < 2)
+					cambiaTurno();
 				return true;
 			}
 		}
@@ -219,7 +221,9 @@ public class BriscolaManager {
 			}
 			getBanco().clear();
 			System.out.println("svuoto il banco");
-			if (banco.size() > 0)
+			System.out.println("Dopo la presa turno di " + turno);
+			System.out.println("Dopo la presa mano " + giocoMano);
+			if (mazzo.getMazzo().size() > 0)
 				pesca();
 			if (finePartita() != -1) {
 				System.out.println("Partita Finita");
