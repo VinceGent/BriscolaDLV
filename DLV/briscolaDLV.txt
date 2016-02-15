@@ -14,28 +14,22 @@ gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
 
 :- not #count{ C,S : gioco(C,S) }  = 1.
 
-mioTurno(1) :- #count{ ID : banco(ID,S)} = 0.
+presa(C,S, C1,S1, Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
 
-%presa(C,S, C1,S1, Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V > V1 .
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V = V1, C > C1 .
+batte(C,S,C1,S1):- carta(C,S,V), carta(C1,S1,V1), S!=S1, briscola(S) .
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, briscola(S) , V > V1 .
 
+%prendoConLoStessoSeme(C,S,Tot) :- nonGioco(C,S),banco(C1,S),batte(C,S,C1,S),carta(C,S,V),carta(C1,S,V1),Tot=V+V1.
 
-prendoConLoStessoSeme(C,S,Tot) :- nonGioco(C,S),banco(C1,S),batte(C,S,C1,S),carta(C,S,V),carta(C1,S,V1),Tot=V+V1.
-
-prendoConBriscola(C,S) :- nonGioco(C,S),banco(C1,S1),briscola(S),S!=S1,carta(C,S,V),V=0,carta(C1,S1,V1),V1>=2.
-
-%altrapresa supeflua controllare 
+%prendoConBriscola(C,S) :- nonGioco(C,S),banco(C1,S1),briscola(S),S!=S1,carta(C,S,V),V=0,carta(C1,S1,V1),V1>=2.
 
 
 %:~ presa(C,S, C1,S1 , Tot), carta(C1,S1,0). [Tot : 1]
  
 :~ prendoConLoStessoSeme(C,S,Tot). [Tot : 2]
 :~ prendoConBriscola(C,S). [1 : 1]
- 
-
-batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V > V1 .
-batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V = V1, C > C1 .
-batte(C,S,C1,S1):- carta(C,S,V), carta(C1,S1,V1), S!=S1, briscola(S) .
-batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, briscola(S) , V > V1 .
 
 %:~ gioco(C,S), carta(C,S,V). [V : 2]
 %:~ gioco(C,S), carta(C,S,0). [C : 1]

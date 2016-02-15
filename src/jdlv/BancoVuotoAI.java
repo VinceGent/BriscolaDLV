@@ -22,23 +22,23 @@ public BancoVuotoAI(BriscolaManager manager){
  this .mioMazzo= new ArrayList<CartaDaGiocareJDLV>();
 }
 public  void  gioca(){
-List<Carta> mieCarte=manager.getG1().getMieCarte();
-List<Carta> cartePrese=manager.getG1().getCartePrese();
+List<Carta> carteInMano=manager.getG1().getMieCarte();
+List<Carta> cartePreseAI=manager.getG1().getCartePrese();
 List<Carta> cartePreseAvversario=manager.getG2().getCartePrese();
 manoGiocatore.clear();
 banco.clear();
 soluzione.clear();
 mioMazzo.clear();
 mazzoAvversario.clear();
-for(int i= 0 ;i<mieCarte.size();i++)
+for(int i= 0 ;i<carteInMano.size();i++)
 {
-Carta c=mieCarte.get(i);
+Carta c=carteInMano.get(i);
 CartaDaGiocareJDLV cartaJDLV= new CartaDaGiocareJDLV(c.getId(),c.getSeme());
 manoGiocatore.add(cartaJDLV);
 }
-for(int i= 0 ;i<cartePrese.size();i++)
+for(int i= 0 ;i<cartePreseAI.size();i++)
 {
-Carta c=cartePrese.get(i);
+Carta c=cartePreseAI.get(i);
 CartaDaGiocareJDLV cartaJDLV= new CartaDaGiocareJDLV(c.getId(),c.getSeme());
 mioMazzo.add(cartaJDLV);
 }
@@ -76,14 +76,14 @@ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapp
 	// ---- END - addInMapping ---- 
 
 	// ---- START - addInMapping ---- 
-_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mioMazzo,"carteGiocate"));
-it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'mioMazzo::carteGiocate' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mioMazzo,"carteGiocate"), 0));
+_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mioMazzo,"mioMazzo"));
+it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'mioMazzo::mioMazzo' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mioMazzo,"mioMazzo"), 0));
 
 	// ---- END - addInMapping ---- 
 
 	// ---- START - addInMapping ---- 
-_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mazzoAvversario,"carteGiocate"));
-it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'mazzoAvversario::carteGiocate' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mazzoAvversario,"carteGiocate"), 0));
+_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mazzoAvversario,"mazzoAvversario"));
+it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'mazzoAvversario::mazzoAvversario' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mazzoAvversario,"mazzoAvversario"), 0));
 
 	// ---- END - addInMapping ---- 
 

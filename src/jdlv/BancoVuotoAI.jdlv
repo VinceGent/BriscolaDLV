@@ -24,27 +24,28 @@ public class BancoVuotoAI{
 	}
 	
 	public void gioca(){
-		List<Carta> mieCarte = manager.getG1().getMieCarte();
-		List<Carta> cartePrese = manager.getG1().getCartePrese();
+		
+		List<Carta> carteInMano = manager.getG1().getMieCarte();
+		List<Carta> cartePreseAI = manager.getG1().getCartePrese();
 		List<Carta> cartePreseAvversario = manager.getG2().getCartePrese();
 		manoGiocatore.clear();
 		banco.clear();
 		soluzione.clear();
 		mioMazzo.clear();
 		mazzoAvversario.clear();
-		for(int i=0; i<mieCarte.size(); i++){
-			Carta c = mieCarte.get(i);
+		for(int i=0; i < carteInMano.size(); i++){
+			Carta c = carteInMano.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(),c.getSeme());
 			manoGiocatore.add(cartaJDLV);
 		}
 		
-			for(int i=0;i<cartePrese.size();i++){
-			Carta c = cartePrese.get(i);
+		for(int i=0; i < cartePreseAI.size();i++){
+			Carta c = cartePreseAI.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(), c.getSeme());
 			mioMazzo.add(cartaJDLV);
 		}
 		
-		for(int i=0;i<cartePreseAvversario.size();i++){
+		for(int i=0; i < cartePreseAvversario.size(); i++){
 			Carta c = cartePreseAvversario.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(), c.getSeme());
 			mazzoAvversario.add(cartaJDLV);
@@ -60,8 +61,8 @@ public class BancoVuotoAI{
 		<#
 		IN = banco :: banco;
 		IN = manoGiocatore :: manoGiocatore;
-		IN = mioMazzo :: carteGiocate;
-		IN = mazzoAvversario :: carteGiocate;
+		IN = mioMazzo :: mioMazzo;
+		IN = mazzoAvversario :: mazzoAvversario;
 		IN = briscola :: briscola;
 		OUT = soluzione :: gioco;
 		FILE = "DLV/bancoVuotoDLV.txt";
