@@ -142,6 +142,7 @@ public class BriscolaManager {
 					g2.aggiungiCartaPresa(cartaG1);
 					g2.aggiungiCartaPresa(cartaG2);
 					turno = 1;
+					giocoMano = 1;
 				} else if (giocoMano == 0) {
 
 					if (cartaG1.getSeme() != cartaG2.getSeme()) {

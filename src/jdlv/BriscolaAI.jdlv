@@ -58,30 +58,39 @@ public class BriscolaAI {
 		
 		boolean solution = true;
 		
+		
 		<#
 		IN = banco :: banco;
 		IN = manoGiocatore :: manoGiocatore;
-		IN = mioMazzo :: carteGiocate;
-		IN = mazzoAvversario :: carteGiocate;
+		IN = mioMazzo :: mioMazzo;
+		IN = mazzoAvversario :: mazzoAvversario;
 		IN = briscola :: briscola;
 		OUT = soluzione :: gioco;
 		FILE = "DLV/briscolaDLV.txt";
 		#>
 			
 		if_no_answerset{
+			System.out.println("Nessuna Soluzione chiamo scarto");
 			solution = false;
-			System.out.println("Nessuna Soluzione");
-		<#
-		IN = banco :: banco;
-		IN = manoGiocatore :: manoGiocatore;
-		IN = mioMazzo :: carteGiocate;
-		IN = mazzoAvversario :: carteGiocate;
-		IN = briscola :: briscola;
-		OUT = soluzione :: gioco;
-		FILE = "DLV/scartaDLV.txt";
-		#>
 		}
 		
+		if(!solution){
+			System.out.println("Calcolo lo scarto");
+			<#
+			IN = banco :: banco;
+			IN = manoGiocatore :: manoGiocatore;
+			IN = mioMazzo :: mioMazzo;
+			IN = mazzoAvversario :: mazzoAvversario;
+			IN = briscola :: briscola;
+			OUT = soluzione :: gioco;
+			FILE = "DLV/scartaDLV.txt";
+			#>
+			
+			if_no_answerset{
+				System.out.println("Nessuna Soluzione anche allo scarto");
+				solution = false;
+			}
+		}
 		if(solution)
 			System.out.println("Soluzione trovata");	
 	}

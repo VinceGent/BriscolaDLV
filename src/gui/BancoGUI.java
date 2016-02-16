@@ -93,7 +93,7 @@ public class BancoGUI extends GridPane {
 		this.add(briscola , 0 , 0 );
 		setHalignment(briscola, HPos.CENTER);
 		
-		if(b.getMazzo().getMazzo().size() > 1){
+		if(b.getMazzo().getMazzo().size() > 0){
 			
 			ImageView cartaMazzo = new ImageView("file:img/retro.png");
 			cartaMazzo.setFitHeight(screen.getHeight()*0.18);
@@ -121,7 +121,7 @@ public class BancoGUI extends GridPane {
 	
 	
 	public void aggiorna(){
-		if(b.getMazzo().getMazzo().size() > 1){
+		if(b.getMazzo().getMazzo().size() > 0){
 			Text tmp = (Text) mazzo.getChildren().get(1);
 			mazzo.getChildren().remove(1);
 			tmp.setText(Integer.toString(b.getMazzo().getMazzo().size()));

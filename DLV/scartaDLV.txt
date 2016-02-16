@@ -1,0 +1,66 @@
+#maxint=150.
+
+:- not #count{ C,S : gioco(C,S) }  = 1.
+gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
+
+presa(C,S, C1,S1, Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
+
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V > V1 .
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V = V1, C > C1 .
+batte(C,S,C1,S1):- carta(C,S,V), carta(C1,S1,V1), S!=S1, briscola(S) .
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, briscola(S) , V > V1 .
+
+scartoUnLiscio :- gioco(C,S), carta(C,S,V), not briscola(S), V = 0.
+scartoPunti :- gioco(C,S), carta(C,S,V), not briscola(S), V > 1, V < 8.
+
+soloBriscoleInMano :- #count{ C,S : manoGiocatore(C,S), briscola(S)} = 3.
+
+
+:~ not scartoUnLiscio. [ 1 : 5 ]
+
+:~ not scartoPunti. [ 1 : 4 ]
+:~ gioco(C,S), carta(C,S,V), briscola(S). [ V : 4]
+
+:~ soloBriscoleInMano, gioco(C,S), carta(C,S,V). [ V : 3]
+
+carta(1,"denari", 11).
+carta(2,"denari", 0).
+carta(3,"denari", 10).
+carta(4,"denari", 0).
+carta(5,"denari", 0).
+carta(6,"denari", 0).
+carta(7,"denari", 0).
+carta(8,"denari", 2).
+carta(9,"denari", 3).
+carta(10,"denari", 4).
+carta(1,"coppe", 11).
+carta(2,"coppe", 0).
+carta(3,"coppe", 10).
+carta(4,"coppe", 0).
+carta(5,"coppe", 0).
+carta(6,"coppe", 0).
+carta(7,"coppe", 0).
+carta(8,"coppe", 2).
+carta(9,"coppe", 3).
+carta(10,"coppe", 4).
+carta(1,"bastoni", 11).
+carta(2,"bastoni", 0).
+carta(3,"bastoni", 10).
+carta(4,"bastoni", 0).
+carta(5,"bastoni", 0).
+carta(6,"bastoni", 0).
+carta(7,"bastoni", 0).
+carta(8,"bastoni", 2).
+carta(9,"bastoni", 3).
+carta(10,"bastoni", 4).
+carta(1,"spade", 11).
+carta(2,"spade", 0).
+carta(3,"spade", 10).
+carta(4,"spade", 0).
+carta(5,"spade", 0).
+carta(6,"spade", 0).
+carta(7,"spade", 0).
+carta(8,"spade", 2).
+carta(9,"spade", 3).
+carta(10,"spade", 4).
+
