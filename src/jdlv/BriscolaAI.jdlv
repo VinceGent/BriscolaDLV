@@ -71,6 +71,15 @@ public class BriscolaAI {
 		if_no_answerset{
 			solution = false;
 			System.out.println("Nessuna Soluzione");
+		<#
+		IN = banco :: banco;
+		IN = manoGiocatore :: manoGiocatore;
+		IN = mioMazzo :: carteGiocate;
+		IN = mazzoAvversario :: carteGiocate;
+		IN = briscola :: briscola;
+		OUT = soluzione :: gioco;
+		FILE = "DLV/scartaDLV.txt";
+		#>
 		}
 		
 		if(solution)

@@ -71,7 +71,6 @@ public class BancoVuotoAI{
 		if_no_answerset{
 			solution = false;
 			System.out.println("Nessuna Soluzione");
-			System.out.println("Soluzione : "+ soluzione.size());
 		}
 		
 		if(solution)
