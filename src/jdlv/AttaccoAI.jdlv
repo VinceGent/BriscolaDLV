@@ -65,7 +65,7 @@ public class AttaccoAI{
 		IN = mazzoAvversario :: mazzoAvversario;
 		IN = briscola :: briscola;
 		OUT = soluzione :: gioco;
-		FILE = "DLV/bancoVuotoDLV.txt";
+		FILE = "DLV/AttaccoDLV.txt";
 		#>
 			
 		if_no_answerset{
