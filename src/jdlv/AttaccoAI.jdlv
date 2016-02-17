@@ -2,8 +2,7 @@ package jdlv;
 import logic.*;
 import java.util.*;
 
-public class BriscolaAI {
-
+public class AttaccoAI{
 	private BriscolaManager manager;
 	private List <CartaDaGiocareJDLV> manoGiocatore;
 	private List<BancoJDLV> banco;
@@ -11,40 +10,42 @@ public class BriscolaAI {
 	private List<CartaDaGiocareJDLV> mioMazzo;
 	private List<CartaDaGiocareJDLV> mazzoAvversario;
 	private BriscolaJDLV briscola;
+
 	
-	public BriscolaAI(BriscolaManager manager) {
+	public AttaccoAI(BriscolaManager manager){
 		this.manager = manager;
 		this.briscola = new BriscolaJDLV(manager.getBriscola().getSeme());
 		this.soluzione = new ArrayList<CartaDaGiocareJDLV>();
 		this.manoGiocatore = new ArrayList<CartaDaGiocareJDLV>();
 		this.banco = new ArrayList<BancoJDLV>();
 		this.mazzoAvversario = new ArrayList<CartaDaGiocareJDLV>(); 
-		this.mioMazzo = new ArrayList<CartaDaGiocareJDLV>();
+		this.mioMazzo = new ArrayList<CartaDaGiocareJDLV>(); 
 		
 	}
 	
 	public void gioca(){
-		List<Carta> mieCarte = manager.getG1().getMieCarte();
-		List<Carta> cartePrese = manager.getG1().getCartePrese();
-		List<Carta> cartePreseAvversario = manager.getG2().getCartePrese();
 		
+		List<Carta> carteInMano = manager.getG1().getMieCarte();
+		List<Carta> cartePreseAI = manager.getG1().getCartePrese();
+		List<Carta> cartePreseAvversario = manager.getG2().getCartePrese();
+		manoGiocatore.clear();
 		banco.clear();
 		soluzione.clear();
-		manoGiocatore.clear();
 		mioMazzo.clear();
 		mazzoAvversario.clear();
-		for(int i=0; i<mieCarte.size(); i++){
-			Carta c = mieCarte.get(i);
+		for(int i=0; i < carteInMano.size(); i++){
+			Carta c = carteInMano.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(),c.getSeme());
 			manoGiocatore.add(cartaJDLV);
 		}
-		for(int i=0;i<cartePrese.size();i++){
-			Carta c = cartePrese.get(i);
+		
+		for(int i=0; i < cartePreseAI.size();i++){
+			Carta c = cartePreseAI.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(), c.getSeme());
 			mioMazzo.add(cartaJDLV);
 		}
 		
-		for(int i=0;i<cartePreseAvversario.size();i++){
+		for(int i=0; i < cartePreseAvversario.size(); i++){
 			Carta c = cartePreseAvversario.get(i);
 			CartaDaGiocareJDLV cartaJDLV = new CartaDaGiocareJDLV(c.getId(), c.getSeme());
 			mazzoAvversario.add(cartaJDLV);
@@ -57,8 +58,6 @@ public class BriscolaAI {
 		}
 		
 		boolean solution = true;
-		
-		
 		<#
 		IN = banco :: banco;
 		IN = manoGiocatore :: manoGiocatore;
@@ -66,31 +65,14 @@ public class BriscolaAI {
 		IN = mazzoAvversario :: mazzoAvversario;
 		IN = briscola :: briscola;
 		OUT = soluzione :: gioco;
-		FILE = "DLV/briscolaDLV.txt";
+		FILE = "DLV/bancoVuotoDLV.txt";
 		#>
 			
 		if_no_answerset{
-			System.out.println("Nessuna Soluzione chiamo scarto");
 			solution = false;
+			System.out.println("Nessuna Soluzione");
 		}
 		
-		if(!solution){
-			System.out.println("Calcolo lo scarto");
-			<#
-			IN = banco :: banco;
-			IN = manoGiocatore :: manoGiocatore;
-			IN = mioMazzo :: mioMazzo;
-			IN = mazzoAvversario :: mazzoAvversario;
-			IN = briscola :: briscola;
-			OUT = soluzione :: gioco;
-			FILE = "DLV/scartaDLV.txt";
-			#>
-			
-			if_no_answerset{
-				System.out.println("Nessuna Soluzione anche allo scarto");
-				solution = false;
-			}
-		}
 		if(solution)
 			System.out.println("Soluzione trovata");	
 	}
@@ -98,6 +80,5 @@ public class BriscolaAI {
 	public List<CartaDaGiocareJDLV> getSoluzione(){
 		return soluzione;
 	} 
-	
 	
 }

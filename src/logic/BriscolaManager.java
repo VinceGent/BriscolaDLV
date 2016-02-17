@@ -1,8 +1,9 @@
 package logic;
 
 import java.util.HashMap;
-import jdlv.BancoVuotoAI;
-import jdlv.BriscolaAI;
+
+import jdlv.AttaccoAI;
+import jdlv.RispondiAI;
 
 public class BriscolaManager {
 
@@ -15,8 +16,8 @@ public class BriscolaManager {
 	private int punteggioG1 = 0;
 	private int punteggioG2 = 0;
 	private HashMap<Integer, Carta> banco;
-	private BriscolaAI intelligenza;
-	private BancoVuotoAI intelligenzaBancoVuoto;
+	private RispondiAI intelligenza;
+	private AttaccoAI intelligenzaBancoVuoto;
 
 	public BriscolaManager() {
 
@@ -60,8 +61,8 @@ public class BriscolaManager {
 		this.briscola = mazzo.getMazzo().get(0);
 		this.mazzo.getMazzo().remove(0);
 
-		this.intelligenza = new BriscolaAI(this);
-		this.intelligenzaBancoVuoto = new BancoVuotoAI(this);
+		this.intelligenza = new RispondiAI(this);
+		this.intelligenzaBancoVuoto = new AttaccoAI(this);
 
 	}
 
@@ -355,19 +356,19 @@ public class BriscolaManager {
 			turno = 0;
 	}
 
-	public BriscolaAI getIntelligenza() {
+	public RispondiAI getIntelligenza() {
 		return intelligenza;
 	}
 
-	public void setIntelligenza(BriscolaAI intelligenza) {
+	public void setIntelligenza(RispondiAI intelligenza) {
 		this.intelligenza = intelligenza;
 	}
 
-	public BancoVuotoAI getIntelligenzaBancoVuoto() {
+	public AttaccoAI getIntelligenzaBancoVuoto() {
 		return intelligenzaBancoVuoto;
 	}
 
-	public void setIntelligenzaBancoVuoto(BancoVuotoAI intelligenzaBancoVuoto) {
+	public void setIntelligenzaBancoVuoto(AttaccoAI intelligenzaBancoVuoto) {
 		this.intelligenzaBancoVuoto = intelligenzaBancoVuoto;
 	}
 

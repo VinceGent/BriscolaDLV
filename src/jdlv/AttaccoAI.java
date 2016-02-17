@@ -3,7 +3,7 @@ package jdlv;
 import logic.*;
 import java.util.*;
 
-public  class BancoVuotoAI{
+public  class AttaccoAI{
 
 private BriscolaManager manager;
 private List<CartaDaGiocareJDLV> manoGiocatore;
@@ -12,7 +12,7 @@ private List<CartaDaGiocareJDLV> soluzione;
 private List<CartaDaGiocareJDLV> mioMazzo;
 private List<CartaDaGiocareJDLV> mazzoAvversario;
 private BriscolaJDLV briscola;
-public BancoVuotoAI(BriscolaManager manager){
+public AttaccoAI(BriscolaManager manager){
  this .manager=manager;
  this .briscola= new BriscolaJDLV(manager.getBriscola().getSeme());
  this .soluzione= new ArrayList<CartaDaGiocareJDLV>();
