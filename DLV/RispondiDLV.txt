@@ -1,0 +1,108 @@
+#maxint=150.
+
+gioco(Carta,Seme) | nonGioco(Carta,Seme) :- manoGiocatore(Carta,Seme).
+
+:- not #count{ C,S : gioco(C,S) }  = 1.
+
+presa(C,S, C1,S1, Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1),carta(C,S,V),carta(C1,S1,V1), Tot = V+V1.
+
+bilancioPunti(Tot) :- gioco(C,S), banco(C1,S1), batte(C,S,C1,S1), carta(C,S,V),carta(C1,S1,V1), T = V+V1 , Tot = T+22.
+
+bilancioPunti(Tot) :- gioco(C,S), banco(C1,S1), not batte(C,S,C1,S1), carta(C,S,V),carta(C1,S1,V1), T= V+V1, Tot = 22-T .
+
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V > V1 .
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, V = V1, C > C1 .
+batte(C,S,C1,S1):- carta(C,S,V), carta(C1,S1,V1), S!=S1, briscola(S) .
+batte(C,S,C1,S) :- carta(C,S,V), carta(C1,S,V1),C!=C1, briscola(S) , V > V1 .
+
+tuttiLisciInMano :- #count{ C,S : manoGiocatore(C,S), carta(C,S,V), not briscola(S), V = 0} = 3.
+
+liscioInMano :- manoGiocatore(C,S), carta(C,S,V), not briscola(S), V = 0.
+
+mioPunteggio(Tot) :- #sum{ V : mioMazzo(C,S), carta(C,S,V)} = Tot.
+punteggioAvversario(Tot) :- #sum{ V : mazzoAvversario(C,S), carta(C,S,V)} = Tot.
+
+possoVincere :- mioPunteggio(X), presa(C,S, C1,S1, T), Tot = X + T, Tot > 60 .
+
+almenoTreCarichi :- #count{C,S: carta(C,S,V),manoGiocatore(C,S),V>9}>2.
+
+%potreiPrendere :- manoGiocatore(C,S), banco(C1,S1), batte(C,S,C1,S1).
+prendo :- presa(C,S,_,_,_), gioco(C,S).
+nonPrendo :- not prendo.
+
+aTerraNienteBriscola :- banco(C,S), not briscola(S).
+
+puntiSulBanco :- banco(C,S), carta(C,S,V), V>0 , V < 9.
+caricoSulBanco :- banco(C,S), carta(C,S,V), V>9.
+liscioSulBanco :- banco(C,S), carta(C,S,V), V = 0.
+briscolaSulBanco :- banco(C,S), briscola(S).
+almeno2briscoleDivalore :- #count{ C,S : manoGiocatore(C,S),briscola(S), valoreBriscola(C,X)}>1.
+
+briscoleInMano :- manoGiocatore(C,S), briscola(S).
+treBriscoleInMano :- #count{ C,S : manoGiocatore(C,S),briscola(S)} = 3.
+briscoleConsecutive :- manoGiocatore(C,S), briscola(S), valoreBriscola(C,X), manoGiocatore(C1,S), valoreBriscola(C1,X1), X = X1+1. 
+
+avversarioVince(Tot) :- nonPrendo, gioco(C,S),carta(C,S,V),banco(C1,S1), carta(C1,S1,V1), punteggioAvversario(X), T = V+X,Tot = T+V1,  Tot > 60.
+
+:- not gioco(C,S), presa(C,S,_,_,_), possoVincere.
+
+:- gioco(C,S), briscola(S), not possoVincere, liscioSulBanco, not treBriscoleInMano.
+
+% non è possibile giocare asso o tre di briscola se ci sono al massimo 4 punti sul banco
+% se non posso vincere e se non ho 3 carichi in mano
+
+	:- gioco(C,S),carta(C,S,V), V>9, briscola(S), not almenoTreCarichi, not possoVincere, puntiSulBanco.
+	:- gioco(C,S),carta(C,S,V), V>9, briscola(S), not almenoTreCarichi, not possoVincere, liscioSulBanco.
+
+
+:~ bilancioPunti(T), X = 44-T . [X : 3]
+:~ prendo. [ 1 : 1 ]
+
+
+
+carta(1,"denari", 11).
+carta(2,"denari", 0).
+carta(3,"denari", 10).
+carta(4,"denari", 0).
+carta(5,"denari", 0).
+carta(6,"denari", 0).
+carta(7,"denari", 0).
+carta(8,"denari", 2).
+carta(9,"denari", 3).
+carta(10,"denari", 4).
+carta(1,"coppe", 11).
+carta(2,"coppe", 0).
+carta(3,"coppe", 10).
+carta(4,"coppe", 0).
+carta(5,"coppe", 0).
+carta(6,"coppe", 0).
+carta(7,"coppe", 0).
+carta(8,"coppe", 2).
+carta(9,"coppe", 3).
+carta(10,"coppe", 4).
+carta(1,"bastoni", 11).
+carta(2,"bastoni", 0).
+carta(3,"bastoni", 10).
+carta(4,"bastoni", 0).
+carta(5,"bastoni", 0).
+carta(6,"bastoni", 0).
+carta(7,"bastoni", 0).
+carta(8,"bastoni", 2).
+carta(9,"bastoni", 3).
+carta(10,"bastoni", 4).
+carta(1,"spade", 11).
+carta(2,"spade", 0).
+carta(3,"spade", 10).
+carta(4,"spade", 0).
+carta(5,"spade", 0).
+carta(6,"spade", 0).
+carta(7,"spade", 0).
+carta(8,"spade", 2).
+carta(9,"spade", 3).
+carta(10,"spade", 4).
+
+valoreBriscola(1, 1).
+valoreBriscola(3, 2).
+valoreBriscola(10, 3).
+valoreBriscola(9, 4).
+valoreBriscola(8, 5).
