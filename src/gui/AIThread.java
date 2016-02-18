@@ -20,17 +20,17 @@ public class AIThread extends Thread {
 	@Override
 	public void run() {
 		
-		System.out.println("inizio la partita");
+//		System.out.println("inizio la partita");
 		while(manager.finePartita() == -1){
-			System.out.println("nel while il turno è " + manager.getTurno());
+//			System.out.println("nel while il turno è " + manager.getTurno());
 			if(manager.getTurno() == 0 && manager.getBanco().size() < 2){
-				System.out.println("tocca a tia joca");
+//				System.out.println("tocca a tia joca");
 				 if(manager.getBanco().size() >0){
 					System.out.println("AI risponde alla giocata");
 					rispondiAllaGiocata();
 					
 				}else if(manager.getBanco().isEmpty()){ //banco == 0
-					System.out.println("tocca ad AI e gioca");
+//					System.out.println("tocca ad AI e gioca");
 					giocaBancoVuoto();
 				}
 			}
@@ -38,7 +38,7 @@ public class AIThread extends Thread {
 
 			if(manager.getBanco().size() == 2){
 				try {
-					sleep(7000);
+					sleep(4000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

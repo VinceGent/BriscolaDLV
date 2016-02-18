@@ -88,6 +88,18 @@ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapp
 	// ---- END - addInMapping ---- 
 
 	// ---- START - addInMapping ---- 
+_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mioMazzo,"carteGiocate"));
+it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'mioMazzo::carteGiocate' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mioMazzo,"carteGiocate"), 0));
+
+	// ---- END - addInMapping ---- 
+
+	// ---- START - addInMapping ---- 
+_JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mazzoAvversario,"carteGiocate"));
+it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'mazzoAvversario::carteGiocate' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(mazzoAvversario,"carteGiocate"), 0));
+
+	// ---- END - addInMapping ---- 
+
+	// ---- START - addInMapping ---- 
 _JDLV_PROGRAM_EXECUTING.addText(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(briscola,"briscola"));
 it.unical.mat.jdlv.program.JDLV_Logger.getInstance().logInfoMessage("Add in-mapping 'briscola::briscola' in module EXECUTING:"+ it.unical.mat.jdlv.program.JDLV_Logger.getInstance().getPrettyCode(it.unical.mat.jdlv.program.TypeSolver.getNameTranslation(briscola,"briscola"), 0));
 

@@ -19,7 +19,7 @@ public class MainFrame extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		b = new BriscolaManager();
-		b.nuovaPartita("Mario", "Piera");
+		b.nuovaPartita("IA", "Giocatore");
 		main = new CustomGridPane(b);
 		
 		arg0.setTitle("BriscolaDLV");

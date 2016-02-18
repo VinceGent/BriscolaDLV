@@ -41,7 +41,7 @@ public class GiocatoreGUI extends HBox{
 						disegnaCarte();
 					}
 				});
-	            System.out.println("RIDISEGNO CARTEEEE");
+//	            System.out.println("RIDISEGNO CARTEEEE");
 	        }
 	    }, 0, 2000);
 
@@ -58,8 +58,6 @@ public class GiocatoreGUI extends HBox{
 					CartaGUI tmp = (CartaGUI) arg0.getTarget();
 					if(b.gioca(tmp.getC())){
 						tmp.setUsata(true);
-//						aggiornaCarte();
-//						CustomGridPane.aggiorna();
 						return;
 					}
 					
@@ -71,15 +69,11 @@ public class GiocatoreGUI extends HBox{
 	private void initCarte(){
 		this.getChildren().clear();
 		for (Carta c : g.getMieCarte()){
-//			ImageView carta = new ImageView(c.getImg());
-//			System.out.println("scene height " + getScene().getHeight());
 			CartaGUI carta = new CartaGUI(c);
 			Rectangle2D screen = Screen.getPrimary().getVisualBounds();
 			carta.setFitHeight(screen.getHeight()*0.2);
 			carta.setFitWidth((screen.getHeight()*0.2) - 15.0);
-//			this.carte.add(carta);
 			carteDisegnate.add(carta);
-			//this.disegna.add(true);
 			this.getChildren().add(carta);
 		}
 	}

@@ -63,6 +63,8 @@ public class AttaccoAI{
 		IN = manoGiocatore :: manoGiocatore;
 		IN = mioMazzo :: mioMazzo;
 		IN = mazzoAvversario :: mazzoAvversario;
+		IN = mioMazzo :: carteGiocate;
+		IN = mazzoAvversario :: carteGiocate;
 		IN = briscola :: briscola;
 		OUT = soluzione :: gioco;
 		FILE = "DLV/AttaccoDLV.txt";
